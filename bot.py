@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 import os
 
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -11,7 +11,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("کمک یک‌باره", callback_data="one")]
     ]
     await update.message.reply_text(
-        "به ربات Kevin Trudeau Fan Club خوش آمدید 👇",
+        "به ربات Kevin Trudeau Fan Club خوش آمدید 👋",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
@@ -20,11 +20,17 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await q.answer()
 
     if q.data == "free":
-        await q.message.reply_text("ثبت‌نام رایگان:\nhttps://kevintrudeaufanclub.com")
+        await q.message.reply_text(
+            "ثبت‌نام رایگان:\nhttps://kevintrudeaufanclub.com"
+        )
     elif q.data == "paid":
-        await q.message.reply_text("سطوح عضویت: Bronze تا Patron")
+        await q.message.reply_text(
+            "سطوح عضویت: Bronze تا Patron"
+        )
     elif q.data == "one":
-        await q.message.reply_text("One-Time Contribution فعال است")
+        await q.message.reply_text(
+            "One-Time Contribution فعال است"
+        )
 
 def run():
     app = ApplicationBuilder().token(TOKEN).build()
